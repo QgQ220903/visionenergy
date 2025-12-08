@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHILL WATT - Sạc Xe Điện Tiết Kiệm</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/feather-icons"></script>
+  <!-- reCAPTCHA v3 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf8yCQsAAAAAO6Qo81Rx-PFL3V-SA6q_FT83h4p"></script>
+</head>
+
+<body>
+  <div class=" container">
+    <header class="header">
+      <div class="logo"><span class="bolt">⚡</span> CHILL WATT</div>
+      <div class="hotline"><a href="tel:0916168260"><i data-feather="phone"></i> 0916.16.8260</a></div>
+    </header>
+
+    <div class="urgency">Ưu đãi đặc biệt chỉ từ 10 - 14/11/2025</div>
+
+    <main class="main-grid">
+      <section class="benefits">
+        <div class="badge-offer">ƯU ĐÃI ĐẶC BIỆT</div>
+        <h1>SẠC ĐẦY PIN<br>TIẾT KIỆM - AN TOÀN</h1>
+        <div class="cards">
+          <div class="card"><i data-feather="car"></i><strong>Miễn phí vào bãi 24/7</strong></div>
+          <div class="card"><i data-feather="droplet"></i><strong>Miễn phí nước suối</strong> khi sạc từ 8 số</div>
+          <div class="card"><i data-feather="droplets"></i><strong>Rửa xe đồng giá chỉ 15K</strong></div>
+        </div>
+        <div class="features">
+          <span><i data-feather="shield"></i> An toàn</span>
+          <span><i data-feather="home"></i> Mái che</span>
+          <span><i data-feather="users"></i> WC sạch</span>
+          <span><i data-feather="moon"></i> Giữ xe đêm</span>
+        </div>
+        <div class="quality-stamp">CHẤT LƯỢNG TOP</div>
+        <div class="address"><i data-feather="map-pin"></i> 52/4B Võ Thị Hồi, Xuân Thới Sơn, TP.HCM</div>
+      </section>
+
+      <section class="form-section">
+        <div class="form-container">
+          <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
+          <p>Điền thông tin - nhận ưu đãi ngay hôm nay!</p>
+          <form id="registerForm" novalidate>
+            <input type="text" id="honeypot" style="display:none" tabindex="-1" autocomplete="off">
+
+            <div class="input-group" id="groupName">
+              <label><i data-feather="user"></i> Họ và tên <span class="req">*</span></label>
+              <div class="input-wrapper"><i data-feather="user" class="input-icon"></i>
+                <input type="text" id="fullName" placeholder="Nguyễn Văn A" required>
+              </div>
+              <div class="error-text"><i data-feather="alert-circle"></i> Vui lòng nhập họ tên hợp lệ</div>
+            </div>
+
+            <div class="input-group" id="groupPhone">
+              <label><i data-feather="smartphone"></i> Số điện thoại <span class="req">*</span></label>
+              <div class="input-wrapper"><i data-feather="smartphone" class="input-icon"></i>
+                <input type="tel" id="phone" placeholder="0916.16.8260" required>
+              </div>
+              <div class="error-text"><i data-feather="alert-circle"></i> Số điện thoại không hợp lệ</div>
+            </div>
+
+            <div class="input-group" id="groupPlate">
+              <label><i data-feather="navigation"></i> Biển số xe <span class="req">*</span></label>
+              <div class="input-wrapper"><i data-feather="navigation" class="input-icon"></i>
+                <input type="text" id="plate" placeholder="51H-12345" required>
+              </div>
+              <div class="error-text"><i data-feather="alert-circle"></i> Ví dụ: 51H12345 hoặc 59A123456</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+              <span class="btn-text">ĐĂNG KÝ NGAY</span>
+              <span class="loading"><i data-feather="loader"></i></span>
+            </button>
+            <p class="form-footer">Gọi xác nhận trong vòng 30 phút</p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <span class="close">×</span>
+      <i data-feather="check-circle" class="success-icon"></i>
+      <h3>Đăng ký thành công!</h3>
+      <p>Nhân viên sẽ gọi xác nhận ngay trong vài phút.</p>
+      <p class="note">Vui lòng giữ máy nhé!</p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
