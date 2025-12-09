@@ -1,741 +1,141 @@
-<!DOCTYPE html>
+<!DOCTYPE html <!DOCTYPE html>
 <html lang="vi">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vision Energy Station - Trạm Sạc Xe Điện VinFast</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Roboto:wght@400;500;700&display=swap"
-    rel="stylesheet">
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://www.google.com/recaptcha/api.js?render=6Lf8yCQsAAAAAO6Qo81Rx-PFL3V-SA6q_FT83h4p"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #e8f5e9 0%, #e3f2fd 100%);
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(135deg, #1976d2, #2196f3);
-      padding: 15px 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(25, 118, 210, 0.3);
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: 24px;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .bolt {
-      font-size: 28px;
-      filter: drop-shadow(0 0 10px rgba(139, 195, 74, 0.8));
-    }
-
-    .hotline {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 10px 20px;
-      border-radius: 25px;
-      backdrop-filter: blur(10px);
-    }
-
-    .hotline a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 18px;
-    }
-
-    .urgency {
-      background: linear-gradient(135deg, #8bc34a, #689f38);
-      color: white;
-      text-align: center;
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(139, 195, 74, 0.4);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.02);
-      }
-    }
-
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      align-items: start;
-    }
-
-    .benefits {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .badge-offer {
-      background: linear-gradient(135deg, #8bc34a, #689f38);
-      color: white;
-      padding: 8px 20px;
-      border-radius: 20px;
-      display: inline-block;
-      font-weight: 700;
-      font-size: 14px;
-      margin-bottom: 15px;
-      box-shadow: 0 4px 10px rgba(139, 195, 74, 0.3);
-    }
-
-    h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 36px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #1976d2, #8bc34a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 25px;
-      line-height: 1.2;
-    }
-
-    .cards {
-      display: grid;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: linear-gradient(135deg, #e3f2fd, #f1f8e9);
-      padding: 18px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      border-left: 4px solid #2196f3;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s;
-    }
-
-    .card:hover {
-      transform: translateX(5px);
-      box-shadow: 0 6px 20px rgba(33, 150, 243, 0.2);
-    }
-
-    .card i {
-      color: #1976d2;
-      width: 24px;
-      height: 24px;
-    }
-
-    .features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 25px 0;
-    }
-
-    .features span {
-      background: linear-gradient(135deg, #2196f3, #1976d2);
-      color: white;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
-    }
-
-    .features span i {
-      width: 16px;
-      height: 16px;
-    }
-
-    .quality-stamp {
-      background: linear-gradient(135deg, #8bc34a, #689f38);
-      color: white;
-      text-align: center;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 20px;
-      margin: 20px 0;
-      box-shadow: 0 5px 20px rgba(139, 195, 74, 0.4);
-      letter-spacing: 2px;
-    }
-
-    .address {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #f5f5f5;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: 500;
-      color: #333;
-    }
-
-    .address i {
-      color: #1976d2;
-      width: 20px;
-      height: 20px;
-    }
-
-    .form-section {
-      position: sticky;
-      top: 20px;
-    }
-
-    .form-container {
-      background: white;
-      padding: 35px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-      border-top: 5px solid #2196f3;
-    }
-
-    .form-container h2 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      background: linear-gradient(135deg, #1976d2, #8bc34a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .form-container>p {
-      text-align: center;
-      color: #666;
-      margin-bottom: 25px;
-      font-size: 15px;
-    }
-
-    #honeypot {
-      display: none;
-    }
-
-    .input-group {
-      margin-bottom: 20px;
-    }
-
-    .input-group label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-
-    .input-group label i {
-      color: #2196f3;
-      width: 18px;
-      height: 18px;
-    }
-
-    .req {
-      color: #f44336;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    .input-icon {
-      position: absolute;
-      left: 15px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #1976d2;
-      width: 20px;
-      height: 20px;
-      pointer-events: none;
-    }
-
-    .input-group input {
-      width: 100%;
-      padding: 14px 15px 14px 45px;
-      border: 2px solid #e0e0e0;
-      border-radius: 10px;
-      font-size: 15px;
-      transition: all 0.3s;
-      font-family: 'Roboto', sans-serif;
-    }
-
-    .input-group input:focus {
-      outline: none;
-      border-color: #2196f3;
-      box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
-    }
-
-    .input-group.error input {
-      border-color: #f44336;
-    }
-
-    .error-text {
-      display: none;
-      color: #f44336;
-      font-size: 13px;
-      margin-top: 5px;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .error-text i {
-      width: 14px;
-      height: 14px;
-    }
-
-    .input-group.error .error-text {
-      display: flex;
-    }
-
-    .submit-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #2196f3, #1976d2);
-      color: white;
-      border: none;
-      padding: 16px;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 1px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(33, 150, 243, 0.5);
-    }
-
-    .submit-btn:active {
-      transform: translateY(0);
-    }
-
-    .submit-btn.loading {
-      pointer-events: none;
-      opacity: 0.7;
-    }
-
-    .loading {
-      display: none;
-    }
-
-    .submit-btn.loading .btn-text {
-      display: none;
-    }
-
-    .submit-btn.loading .loading {
-      display: inline-block;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .form-footer {
-      text-align: center;
-      color: #8bc34a;
-      font-weight: 600;
-      margin-top: 15px;
-      font-size: 14px;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-    }
-
-    .modal-content {
-      background: white;
-      margin: 10% auto;
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 450px;
-      text-align: center;
-      position: relative;
-      animation: slideDown 0.3s ease-out;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .close {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      font-size: 32px;
-      font-weight: bold;
-      color: #999;
-      cursor: pointer;
-      transition: color 0.3s;
-      line-height: 1;
-    }
-
-    .close:hover {
-      color: #333;
-    }
-
-    .success-icon {
-      width: 80px;
-      height: 80px;
-      color: #8bc34a;
-      margin-bottom: 20px;
-    }
-
-    .modal-content h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      color: #1976d2;
-      margin-bottom: 15px;
-    }
-
-    .modal-content>p {
-      font-size: 16px;
-      color: #666;
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-
-    .note {
-      color: #8bc34a;
-      font-weight: 600;
-      font-size: 15px !important;
-      margin-bottom: 25px !important;
-    }
-
-    .zalo-cta {
-      background: linear-gradient(135deg, #0068FF, #0084FF);
-      color: white;
-      padding: 16px 30px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 18px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      box-shadow: 0 6px 25px rgba(0, 104, 255, 0.4);
-      transition: all 0.3s;
-      margin-top: 10px;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      20%,
-      50%,
-      80%,
-      100% {
-        transform: translateY(0);
-      }
-
-      40% {
-        transform: translateY(-10px);
-      }
-
-      60% {
-        transform: translateY(-5px);
-      }
-    }
-
-    .zalo-cta:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 30px rgba(0, 104, 255, 0.5);
-    }
-
-    .zalo-icon {
-      width: 28px;
-      height: 28px;
-      background: white;
-      border-radius: 50%;
-      padding: 4px;
-    }
-
-    .zalo-highlight {
-      background: linear-gradient(135deg, #fff9c4, #ffeb3b);
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-      border: 2px dashed #0068FF;
-    }
-
-    .zalo-highlight p {
-      color: #333;
-      font-weight: 600;
-      margin-bottom: 12px;
-      font-size: 16px;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 15px;
-      }
-
-      .header {
-        padding: 12px 20px;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .logo {
-        font-size: 20px;
-      }
-
-      .hotline a {
-        font-size: 16px;
-      }
-
-      .urgency {
-        font-size: 14px;
-        padding: 10px;
-      }
-
-      .main-grid {
-        grid-template-columns: 1fr;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .form-section {
-        position: static;
-        order: -1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .form-container {
-        padding: 25px;
-        width: 100%;
-        max-width: 500px;
-        margin: 0 auto;
-      }
-
-      .form-container h2 {
-        font-size: 24px;
-      }
-
-      .benefits {
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      .quality-stamp {
-        font-size: 18px;
-      }
-
-      .modal-content {
-        margin: 20% auto;
-        padding: 30px 20px;
-        max-width: 90%;
-      }
-
-      .modal-content h3 {
-        font-size: 24px;
-      }
-
-      .success-icon {
-        width: 60px;
-        height: 60px;
-      }
-
-      .zalo-cta {
-        font-size: 16px;
-        padding: 14px 25px;
-      }
-
-      .modal {
-        display: none;
-        /* mặc định ẩn */
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        backdrop-filter: blur(5px);
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* KHI HIỆN MODAL */
-      .modal.active,
-      .modal[style*="block"] {
-        display: flex !important;
-        /* ép hiện */
-      }
-    }
-  </style>
+  <title>Vision Energy Station – Trạm Sạc Nhanh 120kW Quận 7</title>
+  <meta name="description"
+    content="Trạm sạc nhanh Vision Energy Station – 12 súng 120kW – Miễn phí đỗ xe qua đêm – Cà phê, nghỉ ngơi tài xế – Hoạt động 24/7" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lf8tyUsAAAAAEu6lXwj5Td_TM3jVnF_P5Hmu14h"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="shortcut icon" href="./assets/img/favicon-16x16.png" type="image/x-icon">
 </head>
 
 <body>
-  <div class="container">
-    <header class="header">
-      <div class="logo"><span class="bolt">⚡</span> Vision Energy Station</div>
-      <div class="hotline"><a href="tel:0389694393"><i data-feather="phone"></i> 0389.694.393</a></div>
-    </header>
 
-    <div class="urgency">Dịch vụ đa dạng chất lượng tốt nhất</div>
+  <!-- Header Logo + Hotline -->
+  <header class="top-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <i class="fa-solid fa-charging-station" style="color:#7AC143;font-size:1.4em"></i>
+        VISION ENERGY STATION
+      </div>
+      <a href="tel:0389694393" class="hotline">
+        <i class="fas fa-phone-volume"></i> 0389 694 393
+      </a>
+    </div>
+  </header>
 
-    <main class="main-grid">
-      <section class="benefits">
-        <div class="badge-offer">TRẠM SẠC VINFAST CHÍNH HÃNG</div>
-        <h1>SẠC XE ĐIỆN<br>XANH - SẠCH - AN TOÀN</h1>
-        <div class="cards">
-          <div class="card"><i data-feather="zap"></i><strong>12 súng sạc 120kW</strong></div>
-          <div class="card"><i data-feather="home"></i><strong>Khu đổ xe, khu nghỉ ngơi tại chỗ</strong></div>
-          <div class="card"><i data-feather="coffee"></i><strong>Cà phê & Ăn uống miễn phí</strong></div>
-          <div class="card"><i data-feather="clock"></i><strong>Mở cửa 24/7</strong></div>
-        </div>
-        <div class="features">
-          <span><i data-feather="shield"></i> An toàn</span>
-          <span><i data-feather="home"></i> Mái che</span>
-          <span><i data-feather="droplet"></i> Nước suối</span>
-          <span><i data-feather="wifi"></i> WiFi Free</span>
-        </div>
-        <!-- <div class="quality-stamp">XE XANH SẠCH</div> -->
-        <div class="address"><i data-feather="map-pin"></i> 85 Nguyễn Văn Quý, P. Tân Thuận, Quận 7, TP.HCM</div>
-      </section>
-
-      <section class="form-section">
-        <div class="form-container">
-          <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI</h2>
-          <p>Điền thông tin - nhận ưu đãi ngay hôm nay!</p>
-          <form id="registerForm" novalidate>
-            <input type="text" id="honeypot" style="display:none" tabindex="-1" autocomplete="off">
-
-            <div class="input-group" id="groupName">
-              <label><i data-feather="user"></i> Họ và tên <span class="req">*</span></label>
-              <div class="input-wrapper"><i data-feather="user" class="input-icon"></i>
-                <input type="text" id="fullName" placeholder="Nguyễn Văn A" required>
-              </div>
-              <div class="error-text"><i data-feather="alert-circle"></i> Vui lòng nhập họ tên hợp lệ</div>
-            </div>
-
-            <div class="input-group" id="groupPhone">
-              <label><i data-feather="smartphone"></i> Số điện thoại <span class="req">*</span></label>
-              <div class="input-wrapper"><i data-feather="smartphone" class="input-icon"></i>
-                <input type="tel" id="phone" placeholder="0389.694.393" required>
-              </div>
-              <div class="error-text"><i data-feather="alert-circle"></i> Số điện thoại không hợp lệ</div>
-            </div>
-
-            <div class="input-group" id="groupPlate">
-              <label><i data-feather="navigation"></i> Biển số xe <span class="req">*</span></label>
-              <div class="input-wrapper"><i data-feather="navigation" class="input-icon"></i>
-                <input type="text" id="plate" placeholder="51H-12345" required>
-              </div>
-              <div class="error-text"><i data-feather="alert-circle"></i> Ví dụ: 51H12345 hoặc 59A123456</div>
-            </div>
-
-            <button type="submit" class="submit-btn" id="submitBtn">
-              <span class="btn-text">ĐĂNG KÝ NGAY</span>
-              <span class="loading"><i data-feather="loader"></i></span>
-            </button>
-            <p class="form-footer">Đăng ký ngay nhận quà liền tay</p>
-          </form>
-        </div>
-      </section>
-    </main>
+  <!-- Địa chỉ -->
+  <div class="location-bar">
+    <div class="container">
+      <i class="fas fa-map-marker-alt"></i>
+      85 Nguyễn Văn Quỳ, P. Tân Thuận Đông, Quận 7, TP.HCM (Dưới chân cầu Phú Mỹ)
+    </div>
   </div>
 
-  <div id="successModal" class="modal">
-    <div class="modal-content">
-      <span class="close">×</span>
-      <i data-feather="check-circle" class="success-icon"></i>
-      <h3>Đăng ký thành công!</h3>
+  <!-- Main Content -->
+  <section class="main-content">
+    <div class="container">
 
-      <div class="zalo-highlight">
-        <p>🎁 Tham gia Zalo để nhận thêm ưu đãi đặc biệt!</p>
-        <a href="https://zalo.me/g/isscys844" target="_blank" class="zalo-cta">
-          <svg class="zalo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 4C12.96 4 4 12.96 4 24C4 35.04 12.96 44 24 44C35.04 44 44 35.04 44 24C44 12.96 35.04 4 24 4Z"
-              fill="#0068FF" />
-            <path
-              d="M32 17H16C15.45 17 15 17.45 15 18V30C15 30.55 15.45 31 16 31H32C32.55 31 33 30.55 33 30V18C33 17.45 32.55 17 32 17ZM30 28H18V20H30V28Z"
-              fill="white" />
-          </svg>
-          THAM GIA ZALO NGAY
-        </a>
+      <div class="hero-grid">
+
+        <!-- Bên trái: Benefits (trên PC) / dưới form (trên mobile) -->
+        <div class="benefits-side">
+          <h1 class="main-title">VISION ENERGY<br><span style="color: #7ac143;">STATION</span></h1>
+          <p class="slogan">Trạm Sạc Nhanh – Tiện ích Đầy Đủ – Hoạt Động 24/7</p>
+
+          <div class="benefits">
+            <div class="benefit-tag"><i class="fas fa-bolt"></i> 12 súng sạc 120kW</div>
+            <div class="benefit-tag"><i class="fas fa-mug-hot"></i> Có chỗ cà phê & ăn uống</div>
+            <div class="benefit-tag"><i class="fas fa-parking"></i> Đậu xe qua đêm miễn phí</div>
+            <div class="benefit-tag"><i class="fas fa-couch"></i> Phòng nghỉ tài xế</div>
+            <div class="benefit-tag"><i class="fas fa-toilet"></i> Vệ sinh sạch sẽ</div>
+            <div class="benefit-tag"><i class="fas fa-camera"></i> Camera an ninh 24/7</div>
+            <div class="benefit-tag"><i class="fas fa-warehouse"></i> Có mái che rộng rãi</div>
+            <div class="benefit-tag"><i class="fas fa-gift"></i> Tặng nước + quà tích lũy</div>
+          </div>
+
+          <div class="highlight-btn">
+            <i class="fas fa-gift"></i> KHAI TRƯƠNG SIÊU ƯU ĐÃI
+          </div>
+        </div>
+
+        <!-- Bên phải: Form (luôn hiển thị trước trên mobile) -->
+        <div class="form-side">
+          <div class="form-card">
+            <h2>ĐĂNG KÝ NHẬN ƯU ĐÃI<br>KHAI TRƯƠNG</h2>
+            <p class="form-note">Điền thông tin – nhận quà tặng ngay hôm nay!</p>
+
+            <form id="registerForm">
+              <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="fullname" placeholder="VD: Nguyễn Văn An" required />
+              </div>
+
+              <div class="input-group">
+                <i class="fas fa-phone-alt"></i>
+                <input type="tel" id="phone" placeholder="VD: 0909 123 456" required />
+              </div>
+
+              <div class="input-group">
+                <i class="fas fa-car"></i>
+                <input type="text" id="plate" placeholder="VD: 51H-12345 hoặc 51K12345" required />
+              </div>
+
+              <button type="submit" class="btn-submit">
+                ĐĂNG KÝ NGAY <i class="fas fa-arrow-right"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+
       </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <h3>
+        <i class="fa-solid fa-charging-station" style="color:#7AC143;font-size:1.4em"></i>
+        VISION ENERGY STATION
+      </h3>
+      <p><i class="fas fa-map-marker-alt"></i> 85 Nguyễn Văn Quỳ, P. Tân Thuận Đông, Quận 7, TP.HCM</p>
+      <p><i class="fas fa-phone-alt"></i> Hotline: 0389 694 393</p>
+      <a href="https://maps.app.goo.gl/heGHztTSrrwuzqWS6" target="_blank" class="map-btn">
+        <i class="fas fa-directions"></i> Chỉ đường Google Maps
+      </a>
+    </div>
+  </footer>
+
+  <!-- Nút nổi -->
+  <div class="floating-btns">
+    <a href="tel:0389694393" class="call-btn"><i class="fas fa-phone-volume"></i></a>
+    <a href="https://zalo.me/g/isscys844" target="_blank" class="zalo-btn"><i class="fab fa-facebook-messenger"></i></a>
+  </div>
+
+  <!-- Popup thành công – có nút thoát rõ ràng -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup">
+      <button type="button" class="close-popup" id="closePopup" aria-label="Đóng">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <i class="fas fa-check-circle success-icon"></i>
+      <h2>Chúc mừng bạn!</h2>
+      <p>Đăng ký thành công. Chúng tôi sẽ liên hệ ngay!</p>
+
+      <a href="https://zalo.me/g/isscys844" id="zaloLink" class="btn-zalo-big" target="_blank">
+        <i class="fab fa-facebook-messenger"></i>
+        THAM GIA GROUP ZALO NHẬN ƯU ĐÃI
+      </a>
+
+      <p class="note-small">Nhấn vào bất kỳ đâu để thoát</p>
     </div>
   </div>
 

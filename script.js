@@ -1,134 +1,169 @@
-// script.js – PHIÊN BẢN HOÀN CHỈNH, MODAL CHẠY NGON 100%
-const form = document.getElementById("registerForm");
-const btn = document.getElementById("submitBtn");
-const modal = document.getElementById("successModal");
-const closeBtn = document.querySelector(".modal .close");
+// ==================== VISION ENERGY STATION – FINAL PRO VERSION ====================
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("registerForm");
+  const btn = form.querySelector(".btn-submit");
+  const popup = document.getElementById("popup");
+  const zaloLink = document.getElementById("zaloLink");
 
-// Input & Group
-const fullNameInput = document.getElementById("fullName");
-const phoneInput = document.getElementById("phone");
-const plateInput = document.getElementById("plate");
-const groupName = document.getElementById("groupName");
-const groupPhone = document.getElementById("groupPhone");
-const groupPlate = document.getElementById("groupPlate");
+  // === CẤU HÌNH (chỉ sửa link Zalo khi có) ===
+  const APPS_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycbzTAwIi0lOv6l9lcDpQZvwvlEp9qHZW0fFCCcfYPEv5Cy3PoQeCRdOKD35LcnUChSa1Hg/exec";
+  const PUBLIC_KEY = "vision2025_secret_key_2209";
+  const RECAPTCHA_SITE_KEY = "6Lf8tyUsAAAAAEu6lXwj5Td_TM3jVnF_P5Hmu14h";
 
-// CẤU HÌNH
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbx9M7TA-Hh2TKNVG-rxsIgWaxkmaAKelpkTMks6SwrSw3aCTjb711qv13BTq59S6WlOag/exec";
-const PUBLIC_KEY = "chillwatt_2025_super_secret_9f8e3k2m1x7z";
-const RECAPTCHA_SITE_KEY = "6Lf8yCQsAAAAAO6Qo81Rx-PFL3V-SA6q_FT83h4p";
+  // SỬA DÒNG NÀY KHI CÓ GROUP ZALO THẬT
+  zaloLink.href = "https://zalo.me/g/xxxxxxxxx"; // ←←← SỬA SAU NHÉ!
 
-let isSubmitting = false;
+  let isSubmitting = false;
 
-// Hàm hiển thị lỗi / thành công
-function setError(group, msg) {
-  group.classList.remove("success");
-  group.classList.add("error");
-  const el = group.querySelector(".error-text");
-  if (el) {
-    el.innerHTML = `<i data-feather="alert-circle"></i> ${msg}`;
-    el.style.display = "flex";
+  const fullname = document.getElementById("fullname");
+  const phone = document.getElementById("phone");
+  const plate = document.getElementById("plate");
+
+  const groupFullname = fullname.parentElement;
+  const groupPhone = phone.parentElement;
+  const groupPlate = plate.parentElement;
+
+  // Hàm hỗ trợ
+  function setError(group, message = "") {
+    group.classList.add("error");
+    group.classList.remove("success");
+    // Nếu muốn hiện chữ lỗi dưới input thì bật đoạn này lên
+    // let errEl = group.querySelector(".error-msg");
+    // if (!errEl) { errEl = document.createElement("div"); errEl.className="error-msg"; group.appendChild(errEl); }
+    // errEl.textContent = message;
   }
-}
-function setSuccess(group) {
-  group.classList.remove("error");
-  group.classList.add("success");
-  const el = group.querySelector(".error-text");
-  if (el) el.style.display = "none";
-}
-
-// === VALIDATE REAL-TIME ===
-fullNameInput.addEventListener("input", () => {
-  const v = fullNameInput.value.trim();
-  if (!v) setError(groupName, "Vui lòng nhập họ tên");
-  else if (v.length < 2) setError(groupName, "Họ tên quá ngắn");
-  else if (/\d/.test(v)) setError(groupName, "Không được chứa số");
-  else setSuccess(groupName);
-});
-
-phoneInput.addEventListener("input", () => {
-  let digits = phoneInput.value.replace(/\D/g, "").slice(0, 11);
-  phoneInput.value = digits.replace(/(\d{4})(\d{3})(\d{4})/, "$1.$2.$3");
-  if (!digits) setError(groupPhone, "Vui lòng nhập số điện thoại");
-  else if (!/^0[3-9]\d{8}$/.test(digits))
-    setError(groupPhone, "Số điện thoại không hợp lệ");
-  else setSuccess(groupPhone);
-});
-
-plateInput.addEventListener("input", () => {
-  let v = plateInput.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-  if (v.length > 3 && !v.includes("-")) v = v.slice(0, 3) + "-" + v.slice(3);
-  plateInput.value = v.slice(0, 11);
-  if (!v) setError(groupPlate, "Vui lòng nhập biển số");
-  else if (v.length < 6) setError(groupPlate, "Biển số quá ngắn");
-  else setSuccess(groupPlate);
-});
-
-// === SUBMIT FORM ===
-form.addEventListener("submit", function (e) {
-  e.preventDefault();
-  if (isSubmitting) return;
-
-  // Kiểm tra lại toàn bộ
-  fullNameInput.dispatchEvent(new Event("input"));
-  phoneInput.dispatchEvent(new Event("input"));
-  plateInput.dispatchEvent(new Event("input"));
-
-  if (document.querySelectorAll(".input-group.error").length > 0) {
-    document.querySelector(".input-group.error input")?.focus();
-    return;
+  function setSuccess(group) {
+    group.classList.add("success");
+    group.classList.remove("error");
+  }
+  function removeStatus(group) {
+    group.classList.remove("error", "success");
   }
 
-  isSubmitting = true;
-  btn.classList.add("loading");
-
-  grecaptcha.ready(function () {
-    grecaptcha
-      .execute(RECAPTCHA_SITE_KEY, { action: "submit" })
-      .then(function (token) {
-        fetch(APPS_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            key: PUBLIC_KEY,
-            recaptchaToken: token,
-            name: fullNameInput.value.trim(),
-            phone: phoneInput.value,
-            plate: plateInput.value.toUpperCase(),
-            honeypot: document.getElementById("honeypot")?.value || "",
-          }),
-        })
-          .then(() => {
-            // Với no-cors → luôn vào đây nếu request được gửi
-            modal.style.display = "block"; // FIX 1: DÙNG display: block
-            modal.classList.add("active"); // giữ class active nếu cần animation
-            feather.replace();
-          })
-          .catch(() => {
-            alert("Lỗi mạng, vui lòng thử lại!");
-          })
-          .finally(() => {
-            btn.classList.remove("loading");
-            isSubmitting = false;
-          });
-      });
+  // ==================== 1. HỌ VÀ TÊN ====================
+  fullname.addEventListener("input", () => {
+    const v = fullname.value.trim();
+    removeStatus(groupFullname);
+    if (!v) return;
+    if (v.length < 4) {
+      setError(groupFullname);
+    } else if (/\d/.test(v)) {
+      setError(groupFullname);
+    } else if (/[^a-zA-ZÀ-ỹ\s]/.test(v.replace(/[\s-]/g, ""))) {
+      setError(groupFullname); // không cho ký tự đặc biệt ngoài dấu cách và gạch ngang
+    } else {
+      setSuccess(groupFullname);
+    }
   });
-});
 
-// === ĐÓNG MODAL ===
-closeBtn.onclick = () => {
-  modal.style.display = "none";
-  modal.classList.remove("active");
-};
-window.onclick = (e) => {
-  if (e.target === modal) {
-    modal.style.display = "none";
-    modal.classList.remove("active");
-  }
-};
+  // ==================== 2. SỐ ĐIỆN THOẠI ====================
+  phone.addEventListener("input", () => {
+    let digits = phone.value.replace(/\D/g, "").slice(0, 11);
+    // Format lại đẹp (0907 111 222)
+    if (digits.length >= 10) {
+      phone.value = digits.replace(/(\d{4})(\d{3})(\d{3,4})/, "$1 $2 $3");
+    } else {
+      phone.value = digits;
+    }
 
-// Khởi động Feather Icons
-document.addEventListener("DOMContentLoaded", () => {
-  feather.replace();
+    removeStatus(groupPhone);
+    if (!digits) return;
+
+    // Regex chặt: bắt đầu 0, sau là 3-9, tổng 9-10 chữ số sau 0
+    const phoneRegex = /^0[3-9]\d{8,9}$/;
+    const isValid = phoneRegex.test(digits);
+
+    if (isValid) {
+      setSuccess(groupPhone);
+    } else {
+      setError(groupPhone);
+    }
+  });
+  // ==================== 3. BIỂN SỐ XE – SIÊU CHẶT & ĐẸP ====================
+  plate.addEventListener("input", () => {
+    let v = plate.value.toUpperCase().replace(/[^A-Z0-9]/g, ""); // chỉ cho chữ cái + số
+
+    // Tự động thêm dấu gạch sau 2 hoặc 3 ký tự đầu (tùy theo kiểu biển)
+    if (v.length > 2 && !v.includes("-")) {
+      // Nếu bắt đầu bằng số (biển mới): 51H-12345
+      if (/^\d/.test(v)) {
+        if (v.length >= 3) v = v.slice(0, 3) + "-" + v.slice(3);
+      } else {
+        // Biển cũ: 51H12345 → 51H-12345
+        if (v.length >= 4) v = v.slice(0, 4) + "-" + v.slice(4);
+      }
+    }
+
+    plate.value = v.slice(0, 12);
+    removeStatus(groupPlate);
+
+    if (v.length >= 7) {
+      // ít nhất 51A-123 hoặc 51H1234
+      setSuccess(groupPlate);
+    } else if (v.length > 0) {
+      setError(groupPlate);
+    }
+  });
+
+  // ==================== SUBMIT ====================
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (isSubmitting) return;
+
+    // Kích hoạt validate lần cuối
+    fullname.dispatchEvent(new Event("input"));
+    phone.dispatchEvent(new Event("input"));
+    plate.dispatchEvent(new Event("input"));
+
+    // Nếu có lỗi → focus vào ô đầu tiên bị lỗi
+    const errorGroup = document.querySelector(".input-group.error");
+    if (errorGroup) {
+      errorGroup.querySelector("input").focus();
+      return;
+    }
+
+    // OK → gửi đi
+    isSubmitting = true;
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Đang gửi...`;
+
+    grecaptcha.ready(() => {
+      grecaptcha
+        .execute(RECAPTCHA_SITE_KEY, { action: "vision_register" })
+        .then((token) => {
+          fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              key: PUBLIC_KEY,
+              recaptchaToken: token,
+              name: fullname.value.trim(),
+              phone: phone.value.replace(/\s/g, ""),
+              plate: plate.value.toUpperCase(),
+              timestamp: new Date().toLocaleString("vi-VN"),
+            }),
+          })
+            .then(() => {
+              popup.style.display = "flex";
+              form.reset();
+              [groupFullname, groupPhone, groupPlate].forEach(removeStatus);
+            })
+            .catch(() => {
+              alert("Lỗi kết nối, vui lòng thử lại sau vài phút nhé!");
+            })
+            .finally(() => {
+              btn.disabled = false;
+              btn.innerHTML = `ĐĂNG KÝ NGAY <i class="fas fa-arrow-right"></i>`;
+              isSubmitting = false;
+            });
+        });
+    });
+  });
+
+  // Đóng popup khi bấm ngoài
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.style.display = "none";
+  });
 });
