@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const RECAPTCHA_SITE_KEY = "6Lf8tyUsAAAAAEu6lXwj5Td_TM3jVnF_P5Hmu14h";
 
   // SỬA DÒNG NÀY KHI CÓ GROUP ZALO THẬT
-  zaloLink.href = "https://zalo.me/g/xxxxxxxxx"; // ←←← SỬA SAU NHÉ!
+  // zaloLink.href = "https://zalo.me/g/isscys844"; // ←←← SỬA SAU NHÉ!
 
   let isSubmitting = false;
 
@@ -162,8 +162,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Đóng popup khi bấm ngoài
-  popup.addEventListener("click", (e) => {
-    if (e.target === popup) popup.style.display = "none";
+  // === CHỈ ĐÓNG POPUP KHI BẤM NÚT X (KHÔNG CHO BẤM RA NGOÀI) ===
+  document.getElementById("closePopup").addEventListener("click", () => {
+    popup.style.display = "none";
   });
 });
