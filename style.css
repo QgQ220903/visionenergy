@@ -907,3 +907,87 @@ footer h3 {
 .hidden {
   display: none !important;
 }
+
+/* --- TỐI ƯU MOBILE CHO FORM --- */
+@media (max-width: 640px) {
+  /* Tăng chiều ngang cho form */
+  .hero-grid {
+    padding: 0;
+  }
+
+  .form-card {
+    padding: 25px 15px !important;
+    margin-bottom: 30px !important;
+  }
+
+  /* Chỉnh lại font chữ và kích thước input */
+  .form-card h2 {
+    font-size: 1.6rem !important;
+  }
+
+  .input-group i {
+    left: 15px !important;
+    font-size: 1.1rem !important;
+  }
+
+  .input-group input {
+    padding-left: 45px !important;
+    font-size: 16px !important; /* 16px là chuẩn để tránh trình duyệt tự động zoom trên iPhone */
+  }
+
+  .btn-submit {
+    font-size: 1.1rem !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+  }
+
+  /* Căn chỉnh lại các tag lợi ích bên dưới cho gọn */
+  .benefit-tag {
+    font-size: 0.9rem !important;
+    padding: 8px 15px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .popup-overlay {
+    padding: 10px; /* Giảm khoảng cách bao ngoài để có thêm chỗ cho popup */
+    align-items: center; /* Đảm bảo popup luôn nằm giữa màn hình */
+  }
+
+  .popup {
+    width: 95%;
+    max-height: 90vh; /* Giới hạn chiều cao popup tối đa bằng 90% màn hình */
+    overflow-y: auto; /* Tự động xuất hiện thanh cuộn nếu nội dung quá dài */
+    padding: 40px 20px 30px; /* Giảm bớt padding để tiết kiệm diện tích */
+    border-radius: 20px;
+  }
+
+  .popup h2 {
+    font-size: 1.8rem !important; /* Thu nhỏ tiêu đề "Chúc mừng" */
+    margin: 10px 0;
+  }
+
+  .success-icon {
+    font-size: 3.5rem !important; /* Thu nhỏ icon tích xanh */
+    margin-bottom: 10px;
+  }
+
+  .btn-zalo-big {
+    font-size: 1.1rem !important; /* Thu nhỏ nút Zalo để không chiếm hết màn hình */
+    padding: 15px 20px !important;
+    width: 100%; /* Đảm bảo nút không bị tràn ngang */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+  }
+
+  .close-popup {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+    background: #eee; /* Làm nút đóng rõ ràng hơn để dễ bấm */
+    z-index: 1001;
+  }
+}
