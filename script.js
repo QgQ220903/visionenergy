@@ -541,22 +541,38 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   plate.addEventListener("input", () => {
+    // Lấy giá trị, chuyển uppercase và chỉ giữ chữ cái + số
     let raw = plate.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+
     let formatted = "";
-    if (raw.length >= 1) {
-      formatted = raw.slice(0, 2);
-      if (raw.length > 2) {
-        formatted += "-" + raw.charAt(2);
-        if (raw.length > 3) {
-          formatted += raw.slice(3, 8);
-        }
+
+    if (raw.length > 0) {
+      // Phần đầu: 3 ký tự (ví dụ: 51F, 59A, 43B...)
+      let prefix = raw.slice(0, 3);
+
+      // Phần số sau: từ ký tự thứ 4 trở đi, tối đa 5 số
+      let numbers = raw.slice(3, 8); // giới hạn 5 số
+
+      formatted = prefix;
+
+      // Tự động thêm dấu gạch ngang khi đã nhập đủ 3 ký tự đầu và có ít nhất 1 số
+      if (raw.length >= 4) {
+        formatted += "-" + numbers;
       }
-    } else {
-      formatted = raw;
+      // Nếu chỉ mới nhập 3 ký tự đầu → chưa thêm gạch ngang (tránh hiện - sớm)
+      // Nếu nhập ít hơn 3 → chỉ hiện những gì đã nhập
     }
+
+    // Gán lại giá trị đã format vào input
     plate.value = formatted;
+
+    // Xóa trạng thái cũ
     removeStatus(plate.parentElement);
-    const platePattern = /^\d{2}-[A-Z]\d{4,5}$/;
+
+    // Regex kiểm tra định dạng hợp lệ: 2 số + 1 chữ - 4 hoặc 5 số
+    // Ví dụ: 51F-02849 hoặc 51F-2849
+    const platePattern = /^[0-9]{2}[A-Z]-[0-9]{4,5}$/;
+
     if (platePattern.test(formatted)) {
       setSuccess(plate.parentElement);
     } else if (formatted.length > 0) {
