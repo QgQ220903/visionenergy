@@ -136,7 +136,7 @@ body {
   padding: 18px 18px 18px 56px;
   border: 2px solid #e0e0e0;
   border-radius: 14px;
-  font-size: 1.1rem;
+  font-size: 0.875rem;
   transition: all 0.3s;
 }
 .input-group input:focus {
@@ -150,7 +150,7 @@ body {
   background: var(--accent);
   color: white;
   padding: 20px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 900;
   border: none;
   border-radius: 16px;
@@ -392,7 +392,7 @@ footer h3 {
     font-size: 2.7rem;
   }
   .highlight-btn {
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 16px 28px;
   }
   .benefit-tag {
@@ -873,4 +873,37 @@ footer h3 {
   justify-content: center;
   z-index: 1000;
   padding: 20px;
+}
+
+.mode-switch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+.mode-btn {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 2px solid var(--accent);
+  background: white;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.mode-btn.active {
+  background: var(--accent);
+  color: white;
+}
+.mode-btn:hover {
+  transform: scale(1.05);
+}
+.error-msg {
+  color: #e63946;
+  text-align: center;
+  margin: 10px 0;
+  font-weight: 500;
+}
+.hidden {
+  display: none !important;
 }
