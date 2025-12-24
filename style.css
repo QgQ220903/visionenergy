@@ -12,7 +12,7 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, Helvetica, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--gray);
   line-height: 1.6;
 }
@@ -424,7 +424,7 @@ footer h3 {
   align-items: center;
 }
 .logo {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   font-weight: 900;
 }
 .hotline {
@@ -504,7 +504,7 @@ footer h3 {
     text-align: center;
   }
   .logo {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .slogan-big {
     font-size: 1.6rem;
@@ -532,7 +532,7 @@ footer h3 {
   padding: 0 20px;
 }
 .logo {
-  font-size: 2rem;
+  font-size: 1.2rem;
   font-weight: 900;
 }
 .hotline {
@@ -874,7 +874,7 @@ footer h3 {
   z-index: 1000;
   padding: 20px;
 }
-
+/* 
 .mode-switch {
   display: flex;
   justify-content: center;
@@ -882,7 +882,8 @@ footer h3 {
   gap: 10px;
 }
 .mode-btn {
-  padding: 10px 20px;
+  width: max-content;
+  padding: 15px 26px;
   border-radius: 50px;
   border: 2px solid var(--accent);
   background: white;
@@ -897,6 +898,48 @@ footer h3 {
 }
 .mode-btn:hover {
   transform: scale(1.05);
+} */
+/* Container chứa 2 nút */
+.mode-switch {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Tăng khoảng cách giữa 2 nút */
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+/* Style cho nút bấm */
+.mode-btn {
+  flex: 1; /* Cho phép 2 nút có độ rộng bằng nhau và co giãn */
+  max-width: 200px; /* Giới hạn độ rộng tối đa để không quá bè */
+  padding: 15px 20px; /* Tăng độ dày (trên/dưới 15px, trái/phải 20px) */
+  border-radius: 100px; /* Bo góc vuông vắn hơn xíu hoặc giữ 50px nếu muốn tròn */
+  border: 2px solid var(--accent);
+  background: white;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.1rem; /* Tăng kích thước chữ */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* Tránh chữ bị xuống dòng */
+}
+
+/* Trạng thái khi đang được chọn */
+.mode-btn.active {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 4px 12px rgba(122, 193, 67, 0.3);
+}
+
+/* Hiệu ứng khi di chuột vào */
+.mode-btn:hover {
+  transform: translateY(-2px);
+  background: #f0f9eb;
+}
+
+.mode-btn.active:hover {
+  background: #6ab130;
+  color: white;
 }
 .error-msg {
   color: #e63946;

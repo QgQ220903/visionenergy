@@ -463,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // === CẤU HÌNH ===
   const APPS_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbw7aopppmX9CNQzL5RJSepXy90-m2PUmA1DJoKDB7qwMng_vIyS4q2iFmxXHD3SAHvzIQ/exec";
+    "https://script.google.com/macros/s/AKfycbzdujAluPDfCpT8p37FsDTVqFAz0dU4PrzeLPqdB6pqVFTnyqNsH1GvFgDHa52IfmL_TA/exec";
   const PUBLIC_KEY = "vision2025_secret_key_2209";
   const RECAPTCHA_SITE_KEY = "6Lf8tyUsAAAAAEu6lXwj5Td_TM3jVnF_P5Hmu14h";
   let isSubmitting = false;
@@ -485,7 +485,7 @@ document.addEventListener("DOMContentLoaded", function () {
         phoneGroup.classList.add("hidden");
         fullname.required = false;
         phone.required = false;
-        btnSubmit.innerHTML = `CẬP NHẬT LẦN SẠC <i class="fas fa-arrow-right"></i>`;
+        btnSubmit.innerHTML = `XÁC NHẬN NGAY <i class="fas fa-arrow-right"></i>`;
       }
 
       form.reset();
