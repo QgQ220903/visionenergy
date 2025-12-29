@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // === CẤU HÌNH ===
   const APPS_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbybsbP1wa34T5hEjlDAafZ6KNVbsDSZzeJcAbR9_bZtzkcMmaK8c9xW5tqqiHzQuZNj-w/exec";
+    "https://script.google.com/macros/s/AKfycbzR763Gv_mSHSciBlxrDZHQ1c-AlfBEGf1akPbP-E7lvTv0gFXwcioeAogEohbCIyZFsA/exec";
   const PUBLIC_KEY = "vision2025_secret_key_2209";
   const RECAPTCHA_SITE_KEY = "6Lf8tyUsAAAAAEu6lXwj5Td_TM3jVnF_P5Hmu14h";
   let isSubmitting = false;
