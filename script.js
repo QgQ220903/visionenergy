@@ -332,6 +332,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div style="color: #666; font-size: 14px; margin-top: 10px;">
                       Cảm ơn bạn đã sử dụng dịch vụ của Vision Energy!
                     </div>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                      <div style="background: rgba(255, 255, 255, 0.2); 
+                                  padding: 10px 15px; 
+                                  border-radius: 6px; 
+                                  min-width: 200px;">
+                          <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
+                          TÊN WIFI:TRAMSACVINFAST
+                          </div>
+
+                      </div>
+            
+                      <div style="background: rgba(255, 255, 255, 0.2); 
+                                  padding: 10px 15px; 
+                                  border-radius: 6px; 
+                                  min-width: 200px;">
+                          <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
+                             MẬT KHẨU: 85nguyenvanquy
+                          </div>
+                      </div>
+                    </div>
                   </div>
                 `;
               } else {
@@ -343,6 +363,26 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                     <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
                       <div style="margin-bottom: 10px;">Cảm ơn bạn đã đăng ký!</div>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                      <div style="background: rgba(255, 255, 255, 0.2); 
+                                  padding: 10px 15px; 
+                                  border-radius: 6px; 
+                                  min-width: 200px;">
+                          <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
+                          TÊN WIFI:TRAMSACVINFAST
+                          </div>
+
+                      </div>
+            
+                      <div style="background: rgba(255, 255, 255, 0.2); 
+                                  padding: 10px 15px; 
+                                  border-radius: 6px; 
+                                  min-width: 200px;">
+                          <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
+                              MẬT KHẨU: 85nguyenvanquy
+                          </div>
+                      </div>
                     </div>
                   </div>
                 `;
