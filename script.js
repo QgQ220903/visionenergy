@@ -12,14 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const phone = document.getElementById("phone");
   const plate = document.getElementById("plate");
   let currentMode = "new";
-  let optimisticTotal = null;
-  let optimisticMonthly = null;
   let plateCheckTimeout = null;
   let lastCheckedPlate = "";
 
   // === CẤU HÌNH ===
   const APPS_SCRIPT_URL =
-    "https://script.google.com/macros/s/AKfycbzR763Gv_mSHSciBlxrDZHQ1c-AlfBEGf1akPbP-E7lvTv0gFXwcioeAogEohbCIyZFsA/exec";
+    "https://script.google.com/macros/s/AKfycbwtwej6RTx9waMfZ55XUG-zmYpsQjgOZ4Ft2zuVMSz5ACoJ13WnVOfPEa0hfFX0I9zLsA/exec";
   const PUBLIC_KEY = "vision2025_secret_key_2209";
   const RECAPTCHA_SITE_KEY = "6Lf8tyUsAAAAAEu6lXwj5Td_TM3jVnF_P5Hmu14h";
   let isSubmitting = false;
@@ -101,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Validate inputs
+  // Validate Họ tên
   fullname.addEventListener("input", () => {
     const v = fullname.value.trim();
     removeStatus(fullnameGroup);
@@ -117,15 +115,42 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Validate Số điện thoại - GIỮ SỐ 0 ĐẦU TIÊN
   phone.addEventListener("input", () => {
-    let digits = phone.value.replace(/\D/g, "").slice(0, 11);
-    if (digits.length >= 10) {
-      phone.value = digits.replace(/(\d{4})(\d{3})(\d{3,4})/, "$1 $2 $3");
+    // Lấy chỉ số, loại bỏ tất cả ký tự không phải số
+    let digits = phone.value.replace(/\D/g, "");
+
+    // Đảm bảo luôn bắt đầu bằng số 0
+    if (digits.length > 0 && digits.charAt(0) !== "0") {
+      digits = "0" + digits;
+    }
+
+    // Giới hạn độ dài (tối đa 11 số bao gồm số 0 đầu)
+    digits = digits.slice(0, 11);
+
+    // Format hiển thị
+    if (digits.length > 0) {
+      if (digits.length <= 4) {
+        phone.value = digits;
+      } else if (digits.length <= 7) {
+        phone.value = digits.replace(/(\d{4})(\d{0,3})/, "$1 $2");
+      } else if (digits.length <= 10) {
+        phone.value = digits.replace(/(\d{4})(\d{3})(\d{0,3})/, "$1 $2 $3");
+      } else {
+        phone.value = digits.replace(/(\d{4})(\d{3})(\d{0,4})/, "$1 $2 $3");
+      }
     } else {
       phone.value = digits;
     }
+
+    // Di chuyển cursor đến cuối
+    phone.selectionStart = phone.selectionEnd = phone.value.length;
+
+    // Validate
     removeStatus(phoneGroup);
     if (!digits) return;
+
+    // Regex cho số điện thoại Việt Nam (10-11 số, bắt đầu bằng 0)
     const phoneRegex = /^0[3-9]\d{8,9}$/;
     if (phoneRegex.test(digits)) {
       setSuccess(phoneGroup);
@@ -134,23 +159,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Validate Biển số - GIỮ SỐ 0
   plate.addEventListener("input", () => {
-    let raw = plate.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
-    let formatted = "";
+    // Lấy giá trị, chuyển thành chữ hoa
+    let raw = plate.value.toUpperCase();
 
-    if (raw.length > 0) {
-      let prefix = raw.slice(0, 3);
-      let numbers = raw.slice(3, 8);
-      formatted = prefix;
-      if (raw.length >= 4) {
-        formatted += "-" + numbers;
-      }
+    // Chỉ cho phép chữ cái, số và dấu -
+    raw = raw.replace(/[^A-Z0-9\-]/g, "");
+
+    // Giữ nguyên format 00A-00000
+    let formatted = raw;
+
+    // Nếu có quá 3 ký tự và chưa có dấu -, thêm vào sau 3 ký tự đầu
+    if (raw.length > 3 && !raw.includes("-")) {
+      const prefix = raw.substring(0, 3);
+      const suffix = raw.substring(3).replace(/\D/g, ""); // Chỉ lấy số
+      formatted = prefix + "-" + suffix;
+    }
+
+    // Giới hạn độ dài
+    if (formatted.length > 9) {
+      formatted = formatted.substring(0, 9);
     }
 
     plate.value = formatted;
     removeStatus(plate.parentElement);
     errorMessage.textContent = "";
 
+    // Pattern cho biển số: 00A-00000 hoặc 00A-0000
     const platePattern = /^[0-9]{2}[A-Z]-[0-9]{4,5}$/;
 
     if (platePattern.test(formatted)) {
@@ -195,14 +231,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
         }
-      }, 800); // Đợi 800ms sau khi ngừng gõ
+      }, 800);
     } else if (formatted.length > 0) {
       setError(plate.parentElement);
       errorMessage.textContent = "";
     }
   });
 
-  // Submit
+  // Submit form
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (isSubmitting) return;
@@ -232,47 +268,107 @@ document.addEventListener("DOMContentLoaded", function () {
       grecaptcha
         .execute(RECAPTCHA_SITE_KEY, { action: "vision_register" })
         .then((token) => {
+          // Chuẩn bị dữ liệu
+          const phoneValue = phone.value.replace(/\s/g, "");
+          const plateValue = plate.value.toUpperCase();
+
           const data = {
             key: PUBLIC_KEY,
             recaptchaToken: token,
             mode: currentMode,
             name: currentMode === "new" ? fullname.value.trim() : "",
-            phone: currentMode === "new" ? phone.value.replace(/\s/g, "") : "",
-            plate: plate.value.toUpperCase(),
+            phone: currentMode === "new" ? phoneValue : "",
+            plate: plateValue,
             timestamp: new Date().toLocaleString("vi-VN"),
           };
 
           fetch(APPS_SCRIPT_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
             body: JSON.stringify(data),
+            redirect: "follow",
           })
-            .then((res) => res.json())
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+              }
+              return res.json();
+            })
             .then((result) => {
-              if (result.status === "error") {
-                throw new Error(result.message);
+              // DEBUG: Log kết quả để kiểm tra
+              console.log("Server response:", result);
+
+              if (result.status === "error" || !result.success) {
+                throw new Error(result.message || "Có lỗi xảy ra");
               }
 
               if (currentMode === "existing") {
                 popup.style.display = "flex";
+                // SỬA LẠI POPUP - SỬ DỤNG result.total VÀ result.monthly
                 popupMessage.innerHTML = `
-                  ✅ Cập nhật thành công!<br><br>
-                  🔋 Tổng lần sạc: <b>${result.total}</b><br>
-                  📆 Tháng này: <b>${result.monthly}</b>
+                  <div style="text-align: center;">
+                    <div style="font-size: 24px; color: #7ac143; margin-bottom: 15px;">
+                      <i class="fas fa-check-circle"></i> CHECK-IN THÀNH CÔNG!
+                    </div>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                      <div style="font-size: 18px; margin-bottom: 10px;">Xin chào <strong style="color: #2c3e50;">${
+                        result.name || "Quý khách"
+                      }</strong>!</div>
+                      <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span>🔋 Tổng lần sạc:</span>
+                        <strong style="color: #e74c3c; font-size: 20px;">${
+                          result.total || 0
+                        }</strong>
+                      </div>
+                      <div style="display: flex; justify-content: space-between;">
+                        <span>📆 Tháng này:</span>
+                        <strong style="color: #3498db; font-size: 20px;">${
+                          result.monthly || 0
+                        }</strong>
+                      </div>
+                    </div>
+                    <div style="color: #666; font-size: 14px; margin-top: 10px;">
+                      Cảm ơn bạn đã sử dụng dịch vụ của Vision Energy!
+                    </div>
+                  </div>
                 `;
               } else {
                 popup.style.display = "flex";
-                popupMessage.textContent =
-                  "Đăng ký thành công. Chúng tôi sẽ liên hệ ngay!";
+                popupMessage.innerHTML = `
+                  <div style="text-align: center;">
+                    <div style="font-size: 24px; color: #7ac143; margin-bottom: 15px;">
+                      <i class="fas fa-check-circle"></i> ĐĂNG KÝ THÀNH CÔNG!
+                    </div>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                      <div style="margin-bottom: 10px;">Cảm ơn bạn đã đăng ký!</div>
+                    </div>
+                  </div>
+                `;
               }
 
+              // Reset form
               form.reset();
               lastCheckedPlate = "";
               [fullnameGroup, phoneGroup, plate.parentElement].forEach(
                 removeStatus
               );
+
+              // Reset mode về "new" sau 3 giây
+              setTimeout(() => {
+                if (currentMode === "existing") {
+                  const newModeBtn = document.querySelector(
+                    '.mode-btn[data-mode="new"]'
+                  );
+                  if (newModeBtn) {
+                    newModeBtn.click();
+                  }
+                }
+              }, 3000);
             })
             .catch((err) => {
+              console.error("Submit error:", err);
               errorMessage.textContent =
                 err.message || "Lỗi kết nối, thử lại sau!";
             })
@@ -284,6 +380,16 @@ document.addEventListener("DOMContentLoaded", function () {
                   : `XÁC NHẬN NGAY <i class="fas fa-arrow-right"></i>`;
               isSubmitting = false;
             });
+        })
+        .catch((err) => {
+          console.error("reCAPTCHA error:", err);
+          errorMessage.textContent = "Lỗi xác thực reCAPTCHA!";
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML =
+            currentMode === "new"
+              ? `ĐĂNG KÝ NGAY <i class="fas fa-arrow-right"></i>`
+              : `XÁC NHẬN NGAY <i class="fas fa-arrow-right"></i>`;
+          isSubmitting = false;
         });
     });
   });
@@ -291,5 +397,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // Đóng popup
   document.getElementById("closePopup").addEventListener("click", () => {
     popup.style.display = "none";
+  });
+
+  // Đóng popup khi click bên ngoài
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      popup.style.display = "none";
+    }
   });
 });
