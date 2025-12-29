@@ -17,33 +17,29 @@
     href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-
   <link rel="shortcut icon" href="./assets/img/favicon-16x16.png" type="image/x-icon">
 </head>
 
 <body>
-  <!-- Header Logo + Hotline -->
+  <!-- Header Logo + Location + Map Button -->
   <header class="top-header">
     <div class="container header-inner">
       <div class="logo">
         <i class="fa-solid fa-charging-station" style="color:#7AC143;font-size:1.4em"></i>
         VISION ENERGY STATION
       </div>
-      <a href="tel:0389694393" class="hotline">
-        <i class="fas fa-phone-volume"></i> 0389 694 393
-      </a>
+      <div class="header-right">
+        <div class="header-location">
+          <i class="fas fa-map-marker-alt"></i>
+          85 Nguyễn Văn Quỳ, P. Tân Thuận Đông, Quận 7, TP.HCM
+        </div>
+        <a href="https://maps.app.goo.gl/heGHztTSrrwuzqWS6" target="_blank" class="map-btn-header">
+          <i class="fas fa-directions"></i> Chỉ đường
+        </a>
+      </div>
     </div>
   </header>
-  <!-- Địa chỉ -->
-  <div class="location-bar">
-    <div class="container">
-      <i class="fas fa-map-marker-alt"></i>
-      85 Nguyễn Văn Quỳ, P. Tân Thuận Đông, Quận 7, TP.HCM (Dưới chân cầu Phú Mỹ)
-    </div>
-    <a href="https://maps.app.goo.gl/heGHztTSrrwuzqWS6" target="_blank" class="map-btn">
-      <i class="fas fa-directions"></i> Chỉ đường Google Maps
-    </a>
-  </div>
+
   <!-- Main Content -->
   <section class="main-content">
     <div class="container">
@@ -61,9 +57,6 @@
             <div class="benefit-tag"><i class="fas fa-camera"></i> Camera an ninh 24/7</div>
             <div class="benefit-tag"><i class="fas fa-warehouse"></i> Có mái che rộng rãi</div>
             <div class="benefit-tag"><i class="fas fa-gift"></i> Tặng nước + quà tích lũy</div>
-          </div>
-          <div class="highlight-btn">
-            <i class="fas fa-gift"></i> KHAI TRƯƠNG SIÊU ƯU ĐÃI
           </div>
         </div>
         <!-- Bên phải: Form -->
@@ -86,7 +79,7 @@
               </div>
               <div class="input-group">
                 <i class="fas fa-car"></i>
-                <input type="text" id="plate" placeholder="VD: 51H-12345" required />
+                <input type="text" id="plate" placeholder="VD: 51F-12345" required />
               </div>
               <div id="error-message" class="error-msg"></div>
               <button type="submit" class="btn-submit">
@@ -98,6 +91,7 @@
       </div>
     </div>
   </section>
+
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -105,18 +99,20 @@
         <i class="fa-solid fa-charging-station" style="color:#7AC143;font-size:1.4em"></i>
         VISION ENERGY STATION
       </h3>
-      <p><i class="fas fa-map-marker-alt"></i> 85 Nguyễn Văn Quỳ, P. Tân Thuận Đông, Quận 7, TP.HCM</p>
+      <p><i class="fas fa-map-marker-alt"></i> 85 Nguyễn Văn Quỳy, P. Tân Thuận Đông, Quận 7, TP.HCM</p>
       <p><i class="fas fa-phone-alt"></i> Hotline: 0389 694 393</p>
       <a href="https://maps.app.goo.gl/heGHztTSrrwuzqWS6" target="_blank" class="map-btn">
         <i class="fas fa-directions"></i> Chỉ đường Google Maps
       </a>
     </div>
   </footer>
+
   <!-- Nút nổi -->
   <div class="floating-btns">
-    <a href="tel:0389694393" class="call-btn"><i class="fas fa-phone-volume"></i></a>
+    <!-- <a href="tel:0389694393" class="call-btn"><i class="fas fa-phone-volume"></i></a> -->
     <a href="https://zalo.me/g/isscys844" target="_blank" class="zalo-btn"><i class="fab fa-facebook-messenger"></i></a>
   </div>
+
   <!-- Popup thành công -->
   <div class="popup-overlay" id="popup">
     <div class="popup">
