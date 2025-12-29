@@ -338,19 +338,13 @@ document.addEventListener("DOMContentLoaded", function () {
                                   border-radius: 6px; 
                                   min-width: 200px;">
                           <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
-                          TÊN WIFI:TRAMSACVINFAST
+                          TÊN WIFI:TRAMSACVINFAST <br>
+                           MẬT KHẨU: 85nguyenvanquy
                           </div>
 
                       </div>
             
-                      <div style="background: rgba(255, 255, 255, 0.2); 
-                                  padding: 10px 15px; 
-                                  border-radius: 6px; 
-                                  min-width: 200px;">
-                          <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
-                             MẬT KHẨU: 85nguyenvanquy
-                          </div>
-                      </div>
+                      
                     </div>
                   </div>
                 `;
@@ -371,17 +365,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                   min-width: 200px;">
                           <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
                           TÊN WIFI:TRAMSACVINFAST
+                          MẬT KHẨU: 85nguyenvanquy
+
                           </div>
 
-                      </div>
-            
-                      <div style="background: rgba(255, 255, 255, 0.2); 
-                                  padding: 10px 15px; 
-                                  border-radius: 6px; 
-                                  min-width: 200px;">
-                          <div style="font-size: 12px; opacity: 0.9; margin-bottom: 5px;">
-                              MẬT KHẨU: 85nguyenvanquy
-                          </div>
                       </div>
                     </div>
                   </div>
